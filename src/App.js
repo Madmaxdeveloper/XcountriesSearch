@@ -15,7 +15,7 @@ class App extends Component {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data[0]); // PLEASE SHARE WHAT THIS PRINTS
+        console.log(data[0]);
         this.setState({ countries: data });
       })
       .catch((err) => {
@@ -30,11 +30,9 @@ class App extends Component {
   render() {
     const { countries, searchTerm } = this.state;
 
-    const filtered = countries.filter((country) => {
-      const name =
-        country.name?.common || country.name || country.country || "";
-      return name.toLowerCase().includes(searchTerm.toLowerCase());
-    });
+    const filtered = countries.filter((country) =>
+      country.common.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
       <div style={{ padding: "20px" }}>
@@ -51,31 +49,25 @@ class App extends Component {
           }}
         />
         <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
-          {filtered.map((country, index) => {
-            const name =
-              country.name?.common || country.name || country.country || "";
-            const flag =
-              country.flags?.png || country.flag || country.png || "";
-            return (
-              <div
-                key={index}
-                className="countryCard"
-                style={{
-                  border: "1px solid #ccc",
-                  padding: "10px",
-                  textAlign: "center",
-                  width: "120px",
-                }}
-              >
-                <img
-                  src={flag}
-                  alt={name}
-                  style={{ width: "80px", height: "60px", objectFit: "cover" }}
-                />
-                <p>{name}</p>
-              </div>
-            );
-          })}
+          {filtered.map((country, index) => (
+            <div
+              key={index}
+              className="countryCard"
+              style={{
+                border: "1px solid #ccc",
+                padding: "10px",
+                textAlign: "center",
+                width: "120px",
+              }}
+            >
+              <img
+                src={country.png}
+                alt={country.common}
+                style={{ width: "80px", height: "60px", objectFit: "cover" }}
+              />
+              <p>{country.common}</p>
+            </div>
+          ))}
         </div>
       </div>
     );
