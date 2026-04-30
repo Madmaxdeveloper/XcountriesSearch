@@ -10,9 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(
-      "https://countries-search-data-prod-812920491762.asia-south1.run.app/countries"
-    )
+    fetch("https://countries-search-data-prod-812920491762.asia-south1.run.app/countries")
       .then((res) => res.json())
       .then((data) => {
         console.log(data[0]); // PLEASE SHARE WHAT THIS PRINTS
@@ -31,8 +29,7 @@ class App extends Component {
     const { countries, searchTerm } = this.state;
 
     const filtered = countries.filter((country) => {
-      const name =
-        country.name?.common || country.name || country.country || "";
+      const name = country.name?.common || country.name || country.country || "";
       return name.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
@@ -43,19 +40,12 @@ class App extends Component {
           placeholder="Search for countries..."
           value={searchTerm}
           onChange={this.handleSearch}
-          style={{
-            width: "100%",
-            padding: "10px",
-            marginBottom: "20px",
-            boxSizing: "border-box",
-          }}
+          style={{ width: "100%", padding: "10px", marginBottom: "20px", boxSizing: "border-box" }}
         />
         <div style={{ display: "flex", flexWrap: "wrap", gap: "16px" }}>
           {filtered.map((country, index) => {
-            const name =
-              country.name?.common || country.name || country.country || "";
-            const flag =
-              country.flags?.png || country.flag || country.png || "";
+            const name = country.name?.common || country.name || country.country || "";
+            const flag = country.flags?.png || country.flag || country.png || "";
             return (
               <div
                 key={index}
